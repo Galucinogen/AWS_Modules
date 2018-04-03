@@ -55,7 +55,7 @@ module "aws_vpc_peering" {
 
   create_vpc_peering = true
 
-  peer_account_id = "718436387770"
+  peer_account_id = ""
 
   owner_route_table_ids = ["${module.aws_vpc_prod.aws_private_route_table_ids}"]
   owner_subnet_ids      = ["${module.aws_vpc_prod.aws_private_subnet_ids}"]
