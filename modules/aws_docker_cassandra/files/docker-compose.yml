@@ -1,0 +1,85 @@
+version: '3'
+services:
+  cassandra_1:
+    image: cassandra:latest
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.server == master
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    environment:
+      CASSANDRA_CLUSTER_NAME: "CassandraCluster"
+      CASSANDRA_BROADCAST_ADDRESS: cassandra_1
+      CASSANDRA_SEEDS: cassandra_1
+      CASSANDRA_DC: DC
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 300m
+      HEAP_NEWSIZE: 200m
+    ports:
+    - "7000"
+    networks:
+      default:
+
+  cassandra_2:
+    image: cassandra:latest
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.server == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    environment:
+      CASSANDRA_CLUSTER_NAME: "CassandraCluster"
+      CASSANDRA_BROADCAST_ADDRESS: cassandra_1
+      CASSANDRA_SEEDS: cassandra_1
+      CASSANDRA_DC: DC
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 300m
+      HEAP_NEWSIZE: 200m
+    depends_on:
+      - cassandra_1
+    ports:
+    - "7000"
+    networks:
+      default:
+
+  cassandra_3:
+    image: cassandra:latest
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    deploy:
+      placement:
+        constraints:
+          - node.labels.server == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    environment:
+      CASSANDRA_CLUSTER_NAME: "CassandraCluster"
+      CASSANDRA_BROADCAST_ADDRESS: cassandra_1
+      CASSANDRA_SEEDS: cassandra_1
+      CASSANDRA_DC: DC
+      CASSANDRA_RACK: RACK1
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      MAX_HEAP_SIZE: 300m
+      HEAP_NEWSIZE: 200m
+    depends_on:
+      - cassandra_2
+    ports:
+    - "7000"
+    networks:
+      default:
+
+networks:
+  default:
+      external:
+        name: cassandra-net

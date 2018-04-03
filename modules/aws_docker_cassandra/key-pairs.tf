@@ -1,0 +1,5 @@
+resource "aws_key_pair" "deployer" {
+  count      = "${var.create_cassandra ? 1 : 0 }"
+  key_name   = "deploy"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqwTjrOy/wo9GRd2AQznF0Zx1l99cdJIReJRvBlBWlnvHN1QJNNt0LAW5W+xVlZr4RQsaRLuIDhkorz9519Ye1CvcUaQY7hKz+7HC8SERmG8NclOkHC6z1wyk0edJgdoI5XdGQPYYZAQf3/NqbsPw6loKLw+HqRfA+wwJybd5p5wNBddFo0E+5jq32rdLfHrHdzDD5G93XYEQz0vGEgPTydCTQQyX/0BwbO8dZoONaloARKzE40rNDzF/x367DabYAwiq/4rKSCE1Uw/FQMrkOoq1UWPlXLKgAuHQxVoMV6f9r6+TFVGtmXlvBnOkO0jWU3xp9F4gFXi9lyOqM4VlF3ikIgqlmZ175ijLYDNt7S1DMSrk8FTUTk/HI8KDQImelQ23kcJIa/1DLl9ewn5ac4TGqSSThamM3H3lQucHALGqIIRx1DFyQWhmr/BBAmwHtY4BX+ExFpgfcCAJHPPVwvx5GNnDqlapQmfR+jFSyTN7L2vToalbsBFpcTZAUYNfmGlvGH64xrzLTX4ozAVpV0obermLp6Qgdi95asVyTc4MlyLhYK+0BWZWaLSoSzfnSv4d94BIOqpJ8cBpHeSt3N5SjgdgW6rlGRxXRgHUlKOjqdMz1AudVgmjaoyw0sA5jB8PB2ooml4nV0GAdQe7kWzWVUx4lXlo3b3zWyDU6/w== avgur@avgur.od.ua"
+}
