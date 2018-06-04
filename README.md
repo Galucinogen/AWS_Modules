@@ -9,4 +9,4 @@ SES<br />
 S3<br />
 Bastion<br />
 Docker Cassandra<br />
-K8s In Progress<br />
+K8s Cluster In Progress<br />
